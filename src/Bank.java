@@ -61,6 +61,21 @@ public class Bank {
         return filiale;
     }
 
+    public boolean liquiditaetPruefen() {
+        long bilanz = 0;
+        for (Bankkunde kunde : kunden) {
+            Girokonto girokonto = kunde.getGirokonto();
+            if (girokonto != null) {
+                bilanz += girokonto.getKontostand();
+            }
+            Kreditkarte kreditkarte = kunde.getKreditkarte();
+            if (kreditkarte != null) {
+                bilanz += kreditkarte.getKontostand();
+            }
+        }
+        return (bilanz >= 0);
+    }
+
 }
 
 /*
@@ -69,7 +84,6 @@ public class Bank {
 + pruefeBankkundenID(int): boolean
 + kreditAnlegen(int, int[]): Kreditkarte
 + filialeSuchen(String): Bankfiliale
-+ liquiditaetPruefen(): boolean
 + toString(): String
 
  */

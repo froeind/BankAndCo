@@ -1,8 +1,9 @@
+public enum BaFin {
 
-public class BaFin {
+    INSTANCE;
 
-    public BaFin(String blz, String name) {
+    public boolean liquiditaetPruefen(Bank bank){
+        return bank.liquiditaetPruefen();
     }
-
 
 }

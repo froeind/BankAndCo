@@ -14,6 +14,13 @@ public class Bankkunde {
         this.kreditkarte = null;
     }
 
+    public Girokonto getGirokonto() {
+        return this.girokonto;
+    }
+    public Kreditkarte getKreditkarte() {
+        return this.kreditkarte;
+    }
+
     public void giroHinzufuegen(Girokonto girokonto) {
         this.girokonto = girokonto;
     }
