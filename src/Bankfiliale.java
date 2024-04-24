@@ -20,6 +20,9 @@ public class Bankfiliale {
     public String getName(){
         return this.name;
     }
+    public String getAdresse(){
+        return this.adresse;
+    }
     public Bank getBank(){
         return this.bank;
     }
@@ -35,7 +38,7 @@ public class Bankfiliale {
     public String toString(){
         String ausgabe = "Filialname: " + this.name;
         if( this.automaten.size() > 0){
-            ausgabe += "\nAutomaten in der Filiale:\n";
+            ausgabe += "\nAutomatennummern in der Filiale:\n";
             Iterator<Bankautomat> it = this.automaten.listIterator();
             while(it.hasNext()){
                 ausgabe += it.next().toString() + " ";

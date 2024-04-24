@@ -64,6 +64,6 @@ public class Kreditkartenpruefsystem {
         return (pruefziffer == 10 ? 0 : pruefziffer);
     }
     public static boolean pruefeKreditkartennummer(String produktNummer) {
-        return true;
+        return checkProduktNummer(produktNummer);
     }
 }
