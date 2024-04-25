@@ -1,6 +1,6 @@
 public class Kreditkarte extends Bankprodukt {
-    public Kreditkarte(Bank bank, String produktNummer, int kontostand) {
-        super(bank, produktNummer, kontostand);
+    public Kreditkarte(Bank bank, String kundennummer, String produktNummer, int kontostand) {
+        super(bank, kundennummer, produktNummer, kontostand);
     }
 
     public boolean pruefungKreditNum(){

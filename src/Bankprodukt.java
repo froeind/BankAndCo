@@ -3,11 +3,13 @@ import java.util.regex.Pattern;
 public abstract class Bankprodukt {
 
     private Bank bank;
+    String kundennummer;
     String produktNummer;
     private int kontostand;
 
-    public Bankprodukt(Bank bank, String produktNummer, int kontostand) {
+    public Bankprodukt(Bank bank, String kundennummer, String produktNummer, int kontostand) {
         this.bank = bank;
+        this.kundennummer = kundennummer;
         this.produktNummer = produktNummer;
         this.kontostand = kontostand;
     }

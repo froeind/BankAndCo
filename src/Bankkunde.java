@@ -4,12 +4,14 @@ public class Bankkunde {
 
     private Bank bank;
     private Person person;
+    private String kundennummer;
     private Girokonto girokonto;
     private Kreditkarte kreditkarte;
 
-    public Bankkunde(Bank bank, Person person) {
+    public Bankkunde(Bank bank, Person person, String kundennummer) {
         this.bank = bank;
         this.person = person;
+        this.kundennummer = kundennummer;
         this.girokonto = null;
         this.kreditkarte = null;
     }
@@ -19,6 +21,9 @@ public class Bankkunde {
     }
     public Kreditkarte getKreditkarte() {
         return this.kreditkarte;
+    }
+    public String getKundennummer() {
+        return this.kundennummer;
     }
 
     public void giroHinzufuegen(Girokonto girokonto) {
@@ -31,6 +36,5 @@ public class Bankkunde {
 }
 
 /*
-+ getGirokonto(): Girokonto
 + toString(): String
  */

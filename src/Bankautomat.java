@@ -7,13 +7,6 @@ public class Bankautomat {
     private String adresse;
     private Bankfiliale filiale;
 
-    public static int getAutomatIds() {
-        return automatIds;
-    }
-    public int getAutomatId() {
-        return automatId;
-    }
-
     public Bankautomat(String adresse) {
         Bankautomat.automatIds++;
         this.automatId = Bankautomat.automatIds;
@@ -27,12 +20,19 @@ public class Bankautomat {
         this.filiale = filiale;
     }
 
+    public static int getAutomatIds() {
+        return automatIds;
+    }
+    public int getAutomatId() {
+        return automatId;
+    }
+
     public boolean istInFiliale() {
         return (this.filiale != null);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Integer.toString(this.automatId);
     }
 }

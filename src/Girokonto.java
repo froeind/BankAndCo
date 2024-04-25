@@ -1,12 +1,12 @@
+
 public class Girokonto extends Bankprodukt {
 
-    public Girokonto(Bank bank, String produktNummer, int kontostand) {
-        super(bank, produktNummer, kontostand);
+    public Girokonto(Bank bank, String kundennummer, String produktNummer, int kontostand) {
+        super(bank, kundennummer, produktNummer, kontostand);
     }
 
 }
 
 /*
-+ Girokonto(produktNummer:int[])
 + toString(): String
  */
