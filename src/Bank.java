@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.ListIterator;
 import java.util.Set;
 
 public class Bank {
@@ -25,6 +26,17 @@ public class Bank {
     }
     public String getName() {
         return this.name;
+    }
+    public Bankfiliale getFiliale(String filialname) {
+        for (Bankfiliale filiale : this.filialen) {
+            if (filiale.getName() == filialname) {
+                return filiale;
+            }
+        }
+        return null;
+    }
+    public ArrayList<Bankkunde> getKunden() {
+        return this.kunden;
     }
 
     public boolean addNummernkreis(String bankProdukt, String produktNummer) {
@@ -54,11 +66,11 @@ public class Bank {
         System.out.printf("Automat %d in Filiale '%s' als Automat %d aufgestellt!\n", bankautomat.getAutomatId(), filiale.getAdresse(), filiale.lastBankautomat());
         return bankautomat;
     }
-    public Bankfiliale filialeAnlegen(String name, String adresse) {
+    public int filialeAnlegen(String name, String adresse) {
         Bankfiliale filiale = new Bankfiliale(name, adresse, this);
         this.filialen.add(filiale);
         System.out.printf("Filiale '%s' eröffnet!\n", adresse);
-        return filiale;
+        return this.filialen.size();
     }
     public int kundenkontoAnlegen(Person person) {
         int kundenlistennr = this.kunden.size() + 1;
@@ -67,7 +79,7 @@ public class Bank {
         this.kunden.add(bankkunde);
         return kundenlistennr;
     }
-    public boolean giroAnlegen(int kundenlistennr, String produktNummer) {
+    public Girokonto giroAnlegen(int kundenlistennr, String produktNummer) {
         if (Bankprodukt.checkProduktNummer(produktNummer)) {
             if (this.addNummernkreis("Girokonto", produktNummer)) {
                 // ein Kunde könnte mehrere Girokonten haben, das wird aber beim Bankkunden (noch) nicht unterstützt
@@ -75,35 +87,35 @@ public class Bank {
                 Bankkunde bankkunde = this.kunden.get(kundenlistennr - 1);
                 Girokonto girokonto = new Girokonto(this, bankkunde.getKundennummer(), produktNummer, 0);
                 bankkunde.giroHinzufuegen(girokonto);
-                return true;
+                return girokonto;
             } else {
                 System.out.printf("Die Girokontennummer %s ist schon vergeben!\n", produktNummer);
-                return false;
+                return null;
             }
         } else {
             System.out.printf("Die Girokontennummer %s ist nicht valide!\n", produktNummer);
-            return false;
+            return null;
         }
     }
-    public boolean kreditAnlegen(int kundenlistennr, String produktNummer) {
+    public Kreditkarte kreditAnlegen(int kundenlistennr, String produktNummer) {
         if (Bankprodukt.checkProduktNummer(produktNummer)) {
             if ( Kreditkartenpruefsystem.checkProduktNummer(produktNummer)) {
                 if (this.addNummernkreis("Kreditkonto", produktNummer)) {
                     Bankkunde bankkunde = this.kunden.get(kundenlistennr - 1);
                     Kreditkarte kreditkarte = new Kreditkarte(this, bankkunde.getKundennummer(), produktNummer, 0);
                     bankkunde.kreditHinzufuegen(kreditkarte);
-                    return true;
+                    return kreditkarte;
                 } else {
                     System.out.printf("Die Kreditkartennummer %s ist schon vergeben!\n", produktNummer);
-                    return false;
+                    return null;
                 }
             } else {
                 System.out.printf("%s ist keine konsistente Kreditkartennummer!\n", produktNummer);
-                return false;
+                return null;
             }
         } else {
             System.out.printf("Die Kreditkartennummer %s ist nicht valide!\n", produktNummer);
-            return false;
+            return null;
         }
     }
 
@@ -122,12 +134,57 @@ public class Bank {
         return (bilanz >= 0);
     }
 
+    public boolean pruefeBankkundenID(int kontoID){
+        if (this.kunden.size()<=kontoID || 0 > kontoID){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    @Override
+    public String toString(){
+        String ausgabe = "Bank: " + this.name + "\nBLZ: " + this.blz+"\n";
+        if( this.filialen.size() > 0 ){
+            ausgabe += "Filialen der Bank: "+this.filialen.size()+" Filialen\n";
+            ListIterator<Bankfiliale> it = this.filialen.listIterator();
+            int index;
+            while(it.hasNext()){
+                index = it.nextIndex();
+                ausgabe += "Filiale " + index +":\n" + it.next() + "\n";
+            }
+        }
+        if( this.automaten.size() > 0 ){
+            boolean automatenEinleitungGeschrieben = false;
+            String automatenEinleitung = "Automaten außerhalb von Filialen:\n";
+            Bankautomat automat;
+            ListIterator<Bankautomat> it = this.automaten.listIterator();
+            while(it.hasNext()){
+                automat = it.next();
+                if( !automat.istInFiliale() ){
+                    if( !automatenEinleitungGeschrieben ){
+                        ausgabe += automatenEinleitung;
+                        automatenEinleitungGeschrieben = true;
+                    }
+                    ausgabe += automat + "\n";
+                }
+            }
+        }
+
+        return ausgabe;
+    }
+
+    public Bankfiliale filialeSuchen(String nameFiliale) {
+        Bankfiliale filiale;
+        String filialname;
+        ListIterator<Bankfiliale> filialIterator = this.filialen.listIterator();
+        while(filialIterator.hasNext()){
+            filiale = filialIterator.next();
+            filialname = filiale.getName();
+            if(nameFiliale.equals(filialname))
+                return filiale;
+        }
+        return null;
+    }
+
+
 }
-
-/*
-+ pruefeBankkundenID(int): boolean
-+ filialeSuchen(String): Bankfiliale
-+ toString(): String
-
- */
-

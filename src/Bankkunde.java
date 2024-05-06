@@ -25,6 +25,9 @@ public class Bankkunde {
     public String getKundennummer() {
         return this.kundennummer;
     }
+    public Person getPerson() {
+        return this.person;
+    }
 
     public void giroHinzufuegen(Girokonto girokonto) {
         this.girokonto = girokonto;
@@ -33,8 +36,8 @@ public class Bankkunde {
         this.kreditkarte = kreditkarte;
     }
 
+    @Override
+    public String toString(){
+        return "" + this.person + " - " + this.bank;
+    }
 }
-
-/*
-+ toString(): String
- */

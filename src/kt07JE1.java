@@ -1,8 +1,18 @@
-
+import java.io.IOException;
 
 public class kt07JE1 {
 
-    public static void main(String[] args) {
+    public static String transformiereIntArrayZuString(int[] ziffern){
+        return transformiereIntArrayZuString(ziffern,0,ziffern.length);
+    }
+    public static String transformiereIntArrayZuString(int[] ziffern,int start, int ende){
+        String ausgabe = "";
+        for(int i =start; i<ende;i++){
+            ausgabe += ziffern[i];
+        }
+        return ausgabe;
+    }
+    public static void main(String[] args) throws IOException {
 
         Datenverwaltung datenverwaltung = new Datenverwaltung();
         Benutzerinterface ui = new Benutzerinterface(datenverwaltung);

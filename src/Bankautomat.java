@@ -20,6 +20,10 @@ public class Bankautomat {
         this.filiale = filiale;
     }
 
+    public String getAdresse() {
+        return this.adresse;
+    }
+
     public static int getAutomatIds() {
         return automatIds;
     }

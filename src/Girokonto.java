@@ -5,8 +5,11 @@ public class Girokonto extends Bankprodukt {
         super(bank, kundennummer, produktNummer, kontostand);
     }
 
-}
+    @Override
+    public String toString(){
+        String ausgabe = "IBAN: " + super.getProduktNummer();
+        ausgabe = ausgabe + " - Saldo: " + super.getKontostand();
+        return ausgabe;
+    }
 
-/*
-+ toString(): String
- */
+}
